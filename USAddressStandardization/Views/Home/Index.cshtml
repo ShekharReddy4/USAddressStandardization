@@ -1,0 +1,47 @@
+﻿@model AddressViewModel
+@{
+    ViewData["Title"] = "Address Standardizer";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card mt-4">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0">Address Standardizer</h3>
+                </div>
+                <div class="card-body">
+                    <form asp-controller="Home" asp-action="Index" method="post">
+                        <div class="form-group mb-3">
+                            <label asp-for="RawAddress" class="form-label"></label>
+                            <textarea asp-for="RawAddress" class="form-control" rows="3"
+                                      placeholder="Enter address (e.g., 123 Main St Apt 4B, Springfield, IL 62701)"></textarea>
+                            <span asp-validation-for="RawAddress" class="text-danger"></span>
+                        </div>
+
+                        @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+                        {
+                            <div class="alert alert-danger" role="alert">
+                                @Model.ErrorMessage
+                            </div>
+                        }
+
+                        <button type="submit" class="btn btn-primary">Standardize Address</button>
+                    </form>
+
+                    @if (Model.StandardizedAddress != null)
+                    {
+                        <div class="mt-4">
+                            <h4>Standardized Address</h4>
+                            <div class="card">
+                                <div class="card-body">
+                                    <pre class="mb-0">@Model.StandardizedAddress.FormattedAddress</pre>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
